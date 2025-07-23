@@ -11,11 +11,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
-import AuthThemedLogo from "./_components/AuthThemedLogo";
-import LoginForm from "./_components/LoginForm";
-import SignupForm from "./_components/SignupForm";
 import BaseLoader from "@/components/loaders/BaseLoader";
+import SignupForm from "./_components/SignupForm";
+import LoginForm from "./_components/LoginForm";
 
 export default function Home() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -54,9 +52,7 @@ export default function Home() {
       <BaseLoader></BaseLoader>
       <div className="px-4 max-w-[var(--custom-width)] mx-auto w-full h-screen font-raleway flex flex-col md:flex-row justify-center items-center gap-10">
         {/* left logo */}
-        <div className="w-full md:w-1/2">
-          <AuthThemedLogo></AuthThemedLogo>
-        </div>
+        <div className="w-full h-full bg-black dark:bg-white md:w-1/2"></div>
 
         {/* right panel */}
         <div className="w-full md:w-1/2 min-h-[500px]">
@@ -78,17 +74,6 @@ export default function Home() {
 
                 <div className="my-5 md:my-11 w-1/2 mx-auto">
                   <Separator />
-                </div>
-
-                <div className="w-full md:w-1/2 mx-auto">
-                  <button
-                    type="button"
-                    className="px-2 py-2.5 w-full bg-black dark:bg-gray-200 text-white dark:text-black flex justify-center items-center gap-3 transition hover:brightness-110"
-                    onClick={() => console.log("Google OAuth (signup)")}
-                  >
-                    <FcGoogle />
-                    Continue With Google
-                  </button>
                 </div>
 
                 <p className="text-center mt-6">
@@ -118,16 +103,6 @@ export default function Home() {
 
                 <div className="my-5 md:my-11 w-1/2 mx-auto">
                   <Separator />
-                </div>
-                <div className="w-full md:w-1/2 mx-auto">
-                  <button
-                    type="button"
-                    className="px-2 py-2.5 w-full bg-black dark:bg-gray-200 text-white dark:text-black flex justify-center items-center gap-3 transition hover:brightness-110"
-                    onClick={() => console.log("Google OAuth (login)")}
-                  >
-                    <FcGoogle />
-                    Continue With Google
-                  </button>
                 </div>
                 <p className="text-center">
                   Don&apos;t have an account?{" "}
