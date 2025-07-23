@@ -17,7 +17,6 @@ export function BlogPostCard({
   postedAt,
   user,
   stats,
-  myposts,
 }: BlogPostCardProps) {
   console.log(postId);
 
@@ -74,15 +73,6 @@ export function BlogPostCard({
                     </p>
                   </div>
                 </Link>
-                <div>
-                  {myposts && (
-                    <Link href={`/posts/${postId}/edit`}>
-                      <Button>
-                        <Edit /> Edit
-                      </Button>
-                    </Link>
-                  )}
-                </div>
               </div>
             </div>
           </div>
