@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/sheet";
 import { generateMobileMenuList } from "@/constants/menuList";
 import { cn } from "@/lib/utils";
+import { logoutUser } from "@/services/auth.service";
 import { LogOut, Moon, Sparkles, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
@@ -115,7 +116,10 @@ const Navbar = () => {
               </div>
 
               <div className="mt-6">
-                <button className="py-2 w-full text-sm text-red-600 dark:text-red-700 hover:text-white dark:hover:text-white bg-transparent hover:bg-red-700 font-medium flex justify-center items-center gap-2 transition-all duration-500 border-[1px] border-red-600 dark:border-red-700 rounded-[30px] cursor-pointer">
+                <button
+                  onClick={logoutUser}
+                  className="py-2 w-full text-sm text-red-600 dark:text-red-700 hover:text-white dark:hover:text-white bg-transparent hover:bg-red-700 font-medium flex justify-center items-center gap-2 transition-all duration-500 border-[1px] border-red-600 dark:border-red-700 rounded-[30px] cursor-pointer"
+                >
                   <LogOut size="16" /> Sign Out
                 </button>
               </div>

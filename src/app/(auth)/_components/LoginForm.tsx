@@ -25,7 +25,7 @@ export default function LoginForm({ form, onSubmit }: Props) {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem>
               <FormControl>
@@ -34,8 +34,8 @@ export default function LoginForm({ form, onSubmit }: Props) {
                     <User />
                     <input
                       {...field}
-                      type="text"
-                      placeholder="@username"
+                      type="email"
+                      placeholder="Email"
                       className="px-3 py-2.5 outline-none w-full dark:placeholder:text-gray-400/50 dark:text-gray-400"
                     />
                   </div>
@@ -45,7 +45,6 @@ export default function LoginForm({ form, onSubmit }: Props) {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="password"

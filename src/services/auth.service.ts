@@ -1,7 +1,10 @@
 import axiosInstance from "@/utils/axios";
-import { SignupFormData } from "@/schemas/authSchemas";
+import { LoginFormData, SignupFormData } from "@/schemas/authSchemas";
 import { authKey } from "@/constants/storageKey";
-import { setToLocalStorage } from "@/helpers/local-storage";
+import {
+  removeFromLocalStorage,
+  setToLocalStorage,
+} from "@/helpers/local-storage";
 
 export const signupUser = async (data: SignupFormData) => {
   const payload = {
@@ -18,4 +21,18 @@ export const signupUser = async (data: SignupFormData) => {
   }
 
   return res?.data;
+};
+
+export const loginUser = async (data: LoginFormData) => {
+  const res = await axiosInstance.post("/auth/login", data);
+  const token = res?.data?.accessToken;
+
+  if (token) setToLocalStorage(authKey, token);
+
+  return res?.data;
+};
+
+export const logoutUser = () => {
+  removeFromLocalStorage(authKey);
+  window.location.href = "/";
 };

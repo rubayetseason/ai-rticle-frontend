@@ -9,20 +9,33 @@ import {
 } from "@/schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import BaseLoader from "@/components/loaders/BaseLoader";
 import SignupForm from "./_components/SignupForm";
 import LoginForm from "./_components/LoginForm";
-import { signupUser } from "@/services/auth.service";
+import { loginUser, signupUser } from "@/services/auth.service";
 import { toast } from "sonner";
+import { getFromLocalStorage } from "@/helpers/local-storage";
+import { useRouter } from "next/navigation";
+import { authKey } from "@/constants/storageKey";
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = getFromLocalStorage(authKey);
+    if (token) {
+      router.replace("/posts");
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [isSignUp, setIsSignUp] = useState(false);
 
   const loginForm = useForm({
     resolver: zodResolver(loginSchema),
-    defaultValues: { username: "", password: "" },
+    defaultValues: { email: "", password: "" },
   });
 
   const signupForm = useForm({
@@ -41,23 +54,49 @@ export default function Home() {
     signupForm.reset();
   };
 
-  function handleLoginSubmit(data: LoginFormData) {
-    console.log("Login submitted:", data);
+  async function handleLoginSubmit(data: LoginFormData) {
+    try {
+      const res = await loginUser(data);
+
+      if (res?.accessToken) {
+        toast.success("Login successful!");
+        loginForm.reset();
+        window.location.href = "/posts";
+      } else {
+        toast.error(res?.message || "Login failed.");
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.message ||
+        err?.response?.data?.errors?.[0]?.message ||
+        "Login failed due to an unknown error.";
+      toast.error(message);
+    }
   }
 
   async function handleSignupSubmit(data: SignupFormData) {
     try {
-      const res = await signupUser(data);
+      const signupRes = await signupUser(data);
+      if (!signupRes?.id) {
+        toast.error(signupRes?.message || "Signup failed.");
+        return;
+      }
 
-      console.log("res", res);
+      // ✅ Auto-login
+      const loginRes = await loginUser({
+        email: data.email,
+        password: data.password,
+      });
 
-      if (res?.id) {
-        toast.success("Signup successful!");
+      if (loginRes?.accessToken) {
+        toast.success("User created successfully!");
         signupForm.reset();
         window.location.href = "/posts";
       } else {
-        toast.error(res?.message || "Signup failed.");
+        toast.error("Signup succeeded but auto-login failed.");
       }
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const message =

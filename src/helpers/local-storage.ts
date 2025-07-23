@@ -1,6 +1,9 @@
 export const setToLocalStorage = (key: string, value: string) => {
   if (typeof window !== "undefined") {
     localStorage.setItem(key, value);
+    console.log("Token set:", key, value);
+  } else {
+    console.warn("❌ localStorage not available — SSR?");
   }
 };
 
