@@ -52,7 +52,7 @@ export default function Home() {
       <BaseLoader></BaseLoader>
       <div className="px-4 w-full h-screen font-raleway flex flex-col md:flex-row justify-center items-center gap-10">
         {/* left logo */}
-        <div className="w-full h-full bg-black dark:bg-white md:w-1/2"></div>
+        <div className="w-full h-full hidden md:block bg-black dark:bg-white md:w-1/2"></div>
 
         {/* right panel */}
         <div className="w-full md:w-1/2 min-h-[500px]">
