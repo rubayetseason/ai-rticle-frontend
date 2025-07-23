@@ -1,23 +1,15 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { generateMobileMenuList } from "@/constants/menuList";
+import { cn } from "@/lib/utils";
 import { Loader, LogOut, Moon, Sparkles, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
-const name = "John Doe";
 const userName = "@johndoe";
 
 const Sidebar = () => {
@@ -92,27 +84,13 @@ const Sidebar = () => {
         </div>
         <Link href="/profile/123">
           <div className="flex items-center gap-2 cursor-pointer">
-            <TooltipProvider disableHoverableContent>
-              <Tooltip delayDuration={100}>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="relative h-11 w-11 rounded-full"
-                  >
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src="#" alt="Avatar" />
-                      <AvatarFallback className="bg-transparent text-indigo-700 dark:text-indigo-500 font-medium">
-                        {name
-                          ?.split(" ")
-                          .map((w) => w[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="bottom">Profile</TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
+            <Image
+              src="https://picsum.photos/200"
+              alt="avatar"
+              width={40}
+              height={40}
+              className="rounded-full object-cover"
+            />
             <div className="flex flex-col">
               <h1 className="text-sm font-light">{userName}</h1>
             </div>

@@ -1,17 +1,15 @@
 "use client";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { generateMobileMenuList } from "@/constants/menuList";
+import { cn } from "@/lib/utils";
 import { LogOut, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
 
-const name = "John Doe";
 const userName = "@johndoe";
 
 const Navbar = () => {
@@ -34,43 +32,29 @@ const Navbar = () => {
     <div className="md:hidden py-2 flex justify-between items-center border-b-[1px] border-gray-400/50 dark:border-gray-600/50">
       <Sheet>
         <SheetTrigger>
-          <Button variant="outline" className="relative h-11 w-11 rounded-full">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src="#" alt="Avatar" />
-              <AvatarFallback className="bg-transparent text-indigo-700 dark:text-indigo-500 font-medium">
-                {name
-                  ?.split(" ")
-                  .map((w) => w[0])
-                  .join("")}
-              </AvatarFallback>
-            </Avatar>
-          </Button>
+          <Image
+            src="https://picsum.photos/200"
+            alt="avatar"
+            width={40}
+            height={40}
+            className="h-11 w-11 rounded-full object-cover"
+          />
         </SheetTrigger>
         <SheetContent side="left">
           <div className="px-3 pt-7">
             <div>
-              <Link href="/profile/123">
-                <div className="mb-9 flex items-center gap-2 cursor-pointer">
-                  <Button
-                    variant="outline"
-                    className="relative h-11 w-11 rounded-full"
-                  >
-                    <Avatar className="h-8 w-8">
-                      <AvatarImage src="#" alt="Avatar" />
-                      <AvatarFallback className="bg-transparent text-indigo-700 dark:text-indigo-500 font-medium">
-                        {name
-                          ?.split(" ")
-                          .map((w) => w[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                  </Button>
-                  <div className="flex flex-col">
-                    <h1 className="font-medium">{name}</h1>
-                    <h1 className="text-sm font-light">{userName}</h1>
-                  </div>
+              <div className="mb-9 flex items-center gap-2 cursor-pointer">
+                <Image
+                  src="https://picsum.photos/200"
+                  alt="avatar"
+                  width={40}
+                  height={40}
+                  className="rounded-full object-cover"
+                />
+                <div className="flex flex-col">
+                  <h1 className="text-sm font-light">{userName}</h1>
                 </div>
-              </Link>
+              </div>
 
               {menuItems.map((item) => {
                 const isActive = location === item.href;
