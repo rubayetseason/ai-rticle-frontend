@@ -14,6 +14,8 @@ import { useForm } from "react-hook-form";
 import BaseLoader from "@/components/loaders/BaseLoader";
 import SignupForm from "./_components/SignupForm";
 import LoginForm from "./_components/LoginForm";
+import { signupUser } from "@/services/auth.service";
+import { toast } from "sonner";
 
 export default function Home() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -43,8 +45,27 @@ export default function Home() {
     console.log("Login submitted:", data);
   }
 
-  function handleSignupSubmit(data: SignupFormData) {
-    console.log("Signup submitted:", data);
+  async function handleSignupSubmit(data: SignupFormData) {
+    try {
+      const res = await signupUser(data);
+
+      console.log("res", res);
+
+      if (res?.id) {
+        toast.success("Signup successful!");
+        signupForm.reset();
+        window.location.href = "/posts";
+      } else {
+        toast.error(res?.message || "Signup failed.");
+      }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const message =
+        err?.response?.data?.message ||
+        err?.response?.data?.errors?.[0]?.message ||
+        "Signup failed due to an unknown error.";
+      toast.error(message);
+    }
   }
 
   return (
