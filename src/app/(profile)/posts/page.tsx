@@ -16,7 +16,7 @@ const AllPosts = () => {
   }, []);
 
   return (
-    <div className="px-5 space-y-6 py-10">
+    <div className="md:px-5 space-y-6 py-10">
       {loading
         ? Array.from({ length: 3 }).map((_, i) => <BlogPostSkeleton key={i} />)
         : blogPosts.map((post) => <BlogPostCard key={post.postId} {...post} />)}

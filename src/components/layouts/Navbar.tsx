@@ -1,9 +1,14 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { generateMobileMenuList } from "@/constants/menuList";
 import { cn } from "@/lib/utils";
-import { LogOut, Moon, Sun } from "lucide-react";
+import { LogOut, Moon, Sparkles, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,17 +66,21 @@ const Navbar = () => {
 
                 return (
                   <Link key={item.name} href={item.href}>
-                    <div
-                      className={cn(
-                        "px-5 py-3 mb-3 text-lg md:text-xl flex items-center gap-4 rounded-[30px] transition-all duration-300",
-                        isActive
-                          ? "bg-black dark:bg-white text-white dark:text-black"
-                          : "hover:bg-gray-100 dark:hover:bg-gray-300/500"
-                      )}
-                    >
-                      {item?.icon && <item.icon className="size-5 md:size-7" />}
-                      <p>{item.name}</p>
-                    </div>
+                    <SheetClose asChild>
+                      <div
+                        className={cn(
+                          "px-5 py-3 mb-3 text-lg md:text-xl flex items-center gap-4 rounded-[30px] transition-all duration-300",
+                          isActive
+                            ? "text-black dark:text-white font-bold"
+                            : "text-black dark:text-white font-normal"
+                        )}
+                      >
+                        {item?.icon && (
+                          <item.icon className="size-5 md:size-7" />
+                        )}
+                        <p>{item.name}</p>
+                      </div>
+                    </SheetClose>
                   </Link>
                 );
               })}
@@ -87,6 +96,16 @@ const Navbar = () => {
                   <Moon className="size-5 md:size-7 rotate-0 scale-100 transition-all" />
                 )}
                 <p>{isDark ? "Light Mode" : "Dark Mode"}</p>
+              </div>
+
+              <div className="w-[75%] mx-auto">
+                <Link href="/create-post">
+                  <SheetClose asChild>
+                    <button className="bg-gradient-animate hover-pulse mt-10 px-2 py-2.5 w-full text-white text-lg font-medium flex justify-center items-center gap-3 rounded-[30px]">
+                      Post <Sparkles size="18" />
+                    </button>
+                  </SheetClose>
+                </Link>
               </div>
             </div>
 

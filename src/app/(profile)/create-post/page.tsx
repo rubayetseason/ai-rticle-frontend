@@ -31,28 +31,28 @@ const CreatePostPage = () => {
         <div>
           <input
             type="text"
-            className="mx-3 my-5 px-5 py-4 w-full text-2xl font-medium border-b border-input outline-none"
+            className="my-5 px-5 py-4 w-full text-base md:text-2xl font-medium border-b border-input outline-none"
             placeholder="What's on your mind? Enter a title here..."
           />
         </div>
 
-        <div className="mx-3">
+        <div>
           <textarea
-            className="my-5 px-5 py-4 w-full text-lg
+            className="my-5 px-5 py-4 w-full text-sm md:text-lg
             font-normal border-b border-input overflow-hidden resize-none outline-none"
             placeholder="Enter a short description here..."
             rows={3}
           ></textarea>
         </div>
 
-        <div className="px-5 space-y-3">
-          <div className="flex items-center gap-2">
+        <div className="space-y-3">
+          <div className="flex flex-wrap items-center gap-2">
             <Input
               type="text"
               placeholder="Enter tag..."
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
-              className="h-12 text-xl w-full max-w-sm"
+              className="h-12 text-sm md:text-xl w-full max-w-sm"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   e.preventDefault();
@@ -63,7 +63,7 @@ const CreatePostPage = () => {
             <button
               type="button"
               onClick={handleAddTag}
-              className="px-5 py-2 bg-black dark:bg-white text-white dark:text-black flex items-center gap-2 rounded-full"
+              className="mt-4 md:mt-0 px-5 py-2 bg-black dark:bg-white text-white dark:text-black flex items-center gap-2 rounded-full"
             >
               <Plus className="w-5 h-5" /> Add Tag
             </button>

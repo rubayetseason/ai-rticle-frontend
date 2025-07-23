@@ -6,7 +6,7 @@ import { Card } from "../ui/card";
 const BlogPostSkeleton = () => {
   return (
     <Card className="py-0 flex flex-row items-start shadow-none">
-      <Skeleton className="w-72 h-96 rounded-l-xl" />
+      <Skeleton className="hidden md:block w-72 h-96 rounded-l-xl" />
 
       <div className="h-full px-4 py-6 flex flex-col justify-between flex-1">
         <div>

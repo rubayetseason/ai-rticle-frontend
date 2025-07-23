@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { BlogPostCardProps } from "@/types";
 import { formatDistanceToNow } from "date-fns";
-import { Edit, Eye } from "lucide-react";
+import { Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -23,11 +23,11 @@ export function BlogPostCard({
   const router = useRouter();
 
   return (
-    <div className="h-96 py-0 flex flex-row items-start font-raleway border border-input rounded-xl shadow-none">
-      <div className="w-96 h-full">
+    <div className="h-full md:h-96 py-0 flex flex-row items-start font-raleway border border-input rounded-xl shadow-none">
+      <div className="hidden md:block w-96 h-full">
         <Image
           onClick={() => router.push(`/posts/${postId}`)}
-          className="w-full h-full oject-cover rounded-l-xl"
+          className="hidden md:block w-full h-full oject-cover rounded-l-xl"
           src={thumbnail}
           alt={title}
           width={1000}
@@ -49,8 +49,10 @@ export function BlogPostCard({
                 ))}
               </div>
             )}
-            <h2 className="mt-5 text-4xl font-bold">{title}</h2>
-            <p className="mt-5 text-muted-foreground">{shortDescription}</p>
+            <h2 className="mt-5 text-xl md:text-4xl font-bold">{title}</h2>
+            <p className="mt-5 text-sm md:text-bsae text-muted-foreground">
+              {shortDescription}
+            </p>
 
             <div className="mt-9 flex items-center gap-4">
               <Link href="/profie/123">
