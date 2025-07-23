@@ -82,20 +82,18 @@ const Sidebar = () => {
         <div className="mb-4">
           <Separator />
         </div>
-        <Link href="/profile/123">
-          <div className="flex items-center gap-2 cursor-pointer">
-            <Image
-              src="https://picsum.photos/200"
-              alt="avatar"
-              width={40}
-              height={40}
-              className="rounded-full object-cover"
-            />
-            <div className="flex flex-col">
-              <h1 className="text-sm font-light">{userName}</h1>
-            </div>
+        <div className="flex items-center gap-2 cursor-pointer">
+          <Image
+            src="https://picsum.photos/200"
+            alt="avatar"
+            width={40}
+            height={40}
+            className="rounded-full object-cover"
+          />
+          <div className="flex flex-col">
+            <h1 className="text-sm font-light">{userName}</h1>
           </div>
-        </Link>
+        </div>
         <div className="mt-6">
           <button className="py-2 w-full text-sm text-red-600 dark:text-red-700 hover:text-white dark:hover:text-white bg-transparent hover:bg-red-700 font-medium flex justify-center items-center gap-2 transition-all duration-500 border-[1px] border-red-600 dark:border-red-700 rounded-[30px] cursor-pointer">
             <LogOut size="16" /> Sign Out
