@@ -3,11 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { BlogPostCardProps } from "@/types";
 import { formatDistanceToNow } from "date-fns";
-import {
-    Edit,
-    Eye,
-    UserRoundCheck
-} from "lucide-react";
+import { Edit, Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,7 +22,6 @@ export function BlogPostCard({
   console.log(postId);
 
   const router = useRouter();
-
 
   return (
     <div className="h-96 py-0 flex flex-row items-start font-raleway border border-input rounded-xl shadow-none">
@@ -80,16 +75,12 @@ export function BlogPostCard({
                   </div>
                 </Link>
                 <div>
-                  {myposts ? (
+                  {myposts && (
                     <Link href={`/posts/${postId}/edit`}>
                       <Button>
                         <Edit /> Edit
                       </Button>
                     </Link>
-                  ) : (
-                    <Button>
-                      <UserRoundCheck /> Following
-                    </Button>
                   )}
                 </div>
               </div>
