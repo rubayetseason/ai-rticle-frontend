@@ -50,7 +50,7 @@ export default function Home() {
   return (
     <div>
       <BaseLoader></BaseLoader>
-      <div className="px-4 max-w-[var(--custom-width)] mx-auto w-full h-screen font-raleway flex flex-col md:flex-row justify-center items-center gap-10">
+      <div className="px-4 w-full h-screen font-raleway flex flex-col md:flex-row justify-center items-center gap-10">
         {/* left logo */}
         <div className="w-full h-full bg-black dark:bg-white md:w-1/2"></div>
 
@@ -64,7 +64,7 @@ export default function Home() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
                 transition={{ duration: 0.3 }}
-                className="w-3/4 md:w-full mx-auto space-y-6"
+                className="w-3/4 mx-auto space-y-6"
               >
                 <h1 className="text-2xl md:text-5xl font-semibold text-center">
                   Sign Up
@@ -93,10 +93,10 @@ export default function Home() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 30 }}
                 transition={{ duration: 0.3 }}
-                className="w-3/4 md:w-full mx-auto space-y-6"
+                className="w-3/4 mx-auto space-y-6"
               >
                 <h1 className="text-2xl md:text-5xl font-semibold text-center">
-                  Welcome to MindInk.
+                  Welcome to AI-rticle.
                 </h1>
 
                 <LoginForm form={loginForm} onSubmit={handleLoginSubmit} />
