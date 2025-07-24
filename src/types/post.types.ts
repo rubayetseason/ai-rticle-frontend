@@ -34,3 +34,8 @@ export interface ICreatePost {
   content: string;
   userId: string;
 }
+
+export interface IAIGenerateProps {
+  postId: string;
+  mode: "summarize" | "tldr" | "tell_more";
+}

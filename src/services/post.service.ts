@@ -1,6 +1,17 @@
 // app/posts/services/post.service.ts
-import { ICreatePost, Post, PostResponse } from "@/types/post.types";
+import {
+  IAIGenerateProps,
+  ICreatePost,
+  Post,
+  PostResponse,
+} from "@/types/post.types";
 import axiosInstance from "@/utils/axios";
+
+export const generatePostAI = async ({ postId, mode }: IAIGenerateProps) => {
+  const res = await axiosInstance.post("/post/generate", { postId, mode });
+  console.log("ai res ", res);
+  return res.data;
+};
 
 export const createPost = async (data: ICreatePost) => {
   return axiosInstance.post("/post/create-post", data);
