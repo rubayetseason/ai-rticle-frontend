@@ -3,6 +3,7 @@ import { type Metadata } from "next";
 import SearchForm from "../_components/SearchForm";
 import PostResult from "./_components/PostResult";
 import HashtagResult from "./_components/HashtagResult";
+import { searchPostsByTag, searchPostsByTitle } from "@/services/post.service";
 
 export const metadata: Metadata = {
   title: "Search Result",
@@ -18,7 +19,12 @@ type Props = {
 const SearchResultPage = async ({ params, searchParams }: Props) => {
   const { searchTerm } = await params;
   const search = await searchParams;
-  console.log(searchTerm, search);
+  console.log(search);
+
+  const [titleMatches, tagMatches] = await Promise.all([
+    searchPostsByTitle(searchTerm),
+    searchPostsByTag(searchTerm),
+  ]);
 
   return (
     <div className="font-raleway">
@@ -26,8 +32,8 @@ const SearchResultPage = async ({ params, searchParams }: Props) => {
         <GoBackButton></GoBackButton> Search Results
       </div>
       <SearchForm></SearchForm>
-      <PostResult></PostResult>
-      <HashtagResult></HashtagResult>
+      <PostResult posts={titleMatches.data} />
+      <HashtagResult posts={tagMatches.data} tag={searchTerm} />
     </div>
   );
 };

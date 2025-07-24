@@ -1,32 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { blogPosts } from "@/constants";
-import BlogPostSkeleton from "@/components/loaders/BlogPostSkeleton";
 import { BlogPostCard } from "@/components/shared/posts/BlogPostCard";
+import BlogPostSkeleton from "@/components/loaders/BlogPostSkeleton";
+import { Post } from "@/types/post.types";
 
-const HashtagResult = () => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 1200);
-
-    return () => clearTimeout(timeout);
-  }, []);
+const HashtagResult = ({ posts, tag }: { posts: Post[]; tag: string }) => {
+  const loading = !posts;
 
   return (
-    <div className="my-10 space-y-6 border-t border-input">
+    <div className="px-5 my-10 space-y-6 border-t border-input">
       <div className="my-5 flex justify-between items-center">
         <h1 className="text-lg md:text-2xl font-medium">Hashtags</h1>
-        <h1 className="text-sm md:text-lg font-medium">2 Results Found</h1>
+        <h1 className="text-sm md:text-lg font-medium">
+          {posts.length} Result{posts.length !== 1 && "s"} Found for #{tag}
+        </h1>
       </div>
-      {loading
-        ? Array.from({ length: 2 }).map((_, i) => <BlogPostSkeleton key={i} />)
-        : blogPosts
-            .slice(0, 2)
-            .map((post) => <BlogPostCard key={post.postId} {...post} />)}
+
+      {loading ? (
+        Array.from({ length: 2 }).map((_, i) => <BlogPostSkeleton key={i} />)
+      ) : posts.length === 0 ? (
+        <p className="text-muted-foreground">No posts found for #{tag}.</p>
+      ) : (
+        posts.map((post) => <BlogPostCard key={post.id} {...post} />)
+      )}
     </div>
   );
 };

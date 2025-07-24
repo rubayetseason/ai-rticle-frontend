@@ -11,6 +11,20 @@ export const getPosts = async (params?: { search?: string; tag?: string }) => {
   return res.data;
 };
 
+export const searchPostsByTitle = async (searchTerm: string) => {
+  const res = await axiosInstance.get<PostResponse>("/post", {
+    params: { search: searchTerm },
+  });
+  return res.data;
+};
+
+export const searchPostsByTag = async (tag: string) => {
+  const res = await axiosInstance.get<PostResponse>("/post", {
+    params: { tag },
+  });
+  return res.data;
+};
+
 export const getMyPosts = async (userId: string) => {
   const res = await axiosInstance.get<PostResponse>("/post", {
     params: { creatorId: userId },

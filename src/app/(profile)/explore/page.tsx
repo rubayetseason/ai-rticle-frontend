@@ -1,5 +1,4 @@
 import GoBackButton from "@/components/shared/others/GoBackButton";
-import MiniBlogCard from "@/components/shared/posts/MiniBlogCard";
 import SearchForm from "./_components/SearchForm";
 
 const ExplorePage = () => {
@@ -13,11 +12,6 @@ const ExplorePage = () => {
 
       {/* Search Bar */}
       <SearchForm></SearchForm>
-
-      {/* Mini Cards */}
-      <div className="mt-10">
-        <MiniBlogCard />
-      </div>
     </div>
   );
 };
