@@ -35,11 +35,26 @@ import {
 import { LuLayoutList } from "react-icons/lu";
 import { RiListOrdered2 } from "react-icons/ri";
 
-const CreatePostEditor = () => {
-  //intilaise the editor
+const CreatePostEditor = ({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) => {
   const editor = useEditor({
     extensions: tiptapExtensions,
-    content: "",
+    content: value,
+    editorProps: {
+      attributes: {
+        class: "prose dark:prose-invert max-w-none",
+      },
+    },
+    onUpdate: ({ editor }) => {
+      onChange(editor.getHTML());
+    },
+    autofocus: false,
+    editable: true,
     immediatelyRender: false,
   });
 
@@ -294,9 +309,8 @@ const CreatePostEditor = () => {
 
           {/* Editor Content */}
           <EditorContent
-            id="editor_scrollbar"
-            className="!h-[25rem] max-h-[36rem] overflow-y-scroll prose max-w-none border-y-[1px] border-input"
             editor={editor}
+            className="editor-body h-[25rem] max-h-[36rem] w-full overflow-y-scroll cursor-text border-y border-input"
           />
         </div>
       </div>

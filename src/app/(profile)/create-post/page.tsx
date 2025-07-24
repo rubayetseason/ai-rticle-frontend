@@ -1,94 +1,213 @@
 "use client";
-import GoBackButton from "@/components/shared/others/GoBackButton";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { postSchema } from "@/schemas/postSchema";
+import { z } from "zod";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Plus, X } from "lucide-react";
+import GoBackButton from "@/components/shared/others/GoBackButton";
 import { useState } from "react";
-import CreatePostEditor from "./_components/CreatePostEditor";
+import dynamic from "next/dynamic";
+import { getFromLocalStorage } from "@/helpers/local-storage";
+import { authKey } from "@/constants/storageKey";
+import { getUserFromToken } from "@/helpers/jwt";
+import { createPost } from "@/services/post.service";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+// Lazy-load Tiptap editor with `editor` prop forwarding
+const CreatePostEditor = dynamic(
+  () => import("./_components/CreatePostEditor"),
+  {
+    ssr: false,
+  }
+);
+
+type PostFormData = z.infer<typeof postSchema>;
 
 const CreatePostPage = () => {
+  const router = useRouter();
   const [tags, setTags] = useState<string[]>([]);
   const [tagInput, setTagInput] = useState("");
+  const [editorContent, setEditorContent] = useState("");
+
+  const form = useForm<PostFormData>({
+    resolver: zodResolver(postSchema),
+    defaultValues: {
+      title: "",
+      shortDescp: "",
+      tags: [],
+      content: "",
+    },
+  });
 
   const handleAddTag = () => {
     const newTag = tagInput.trim();
     if (newTag && !tags.includes(newTag)) {
-      setTags([...tags, newTag]);
+      const updatedTags = [...tags, newTag];
+      setTags(updatedTags);
+      form.setValue("tags", updatedTags);
       setTagInput("");
     }
   };
 
   const handleRemoveTag = (tagToRemove: string) => {
-    setTags(tags.filter((tag) => tag !== tagToRemove));
+    const updatedTags = tags.filter((tag) => tag !== tagToRemove);
+    setTags(updatedTags);
+    form.setValue("tags", updatedTags);
   };
+
+  async function onSubmit(values: PostFormData) {
+    const token = getFromLocalStorage(authKey);
+
+    if (!token) {
+      toast.error("Unauthorized: Token not found");
+      return;
+    }
+
+    const user = getUserFromToken(token);
+    if (!user?.userId) {
+      toast.error("Unauthorized: Invalid token");
+      return;
+    }
+
+    const payload = {
+      ...values,
+      userId: user.userId,
+    };
+
+    try {
+      await createPost(payload);
+      toast.success("Post created successfully!");
+      router.push("/my-posts");
+    } catch (err) {
+      toast.error("Failed to create post.");
+      console.error(err);
+    }
+  }
 
   return (
     <div>
       <div className="px-5 py-5 font-raleway flex items-center gap-4 border-b border-input">
-        <GoBackButton></GoBackButton> Create a Post
+        <GoBackButton />
+        Create a Post
       </div>
 
-      <div>
-        <div>
-          <input
-            type="text"
-            className="my-5 px-5 py-4 w-full text-base md:text-2xl font-medium border-b border-input outline-none"
-            placeholder="What's on your mind? Enter a title here..."
-          />
-        </div>
-
-        <div>
-          <textarea
-            className="my-5 px-5 py-4 w-full text-sm md:text-lg
-            font-normal border-b border-input overflow-hidden resize-none outline-none"
-            placeholder="Enter a short description here..."
-            rows={3}
-          ></textarea>
-        </div>
-
-        <div className="space-y-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <Input
-              type="text"
-              placeholder="Enter tag..."
-              value={tagInput}
-              onChange={(e) => setTagInput(e.target.value)}
-              className="h-12 text-sm md:text-xl w-full max-w-sm"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  e.preventDefault();
-                  handleAddTag();
-                }
-              }}
-            />
-            <button
-              type="button"
-              onClick={handleAddTag}
-              className="mt-4 md:mt-0 px-5 py-2 bg-black dark:bg-white text-white dark:text-black flex items-center gap-2 rounded-full"
-            >
-              <Plus className="w-5 h-5" /> Add Tag
-            </button>
-          </div>
-
-          {tags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {tags.map((tag, index) => (
-                <span
-                  key={index}
-                  className="flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm"
-                >
-                  {tag}
-                  <X
-                    className="w-4 h-4 cursor-pointer"
-                    onClick={() => handleRemoveTag(tag)}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-6">
+          {/* Title */}
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="What's on your mind? Enter a title here..."
+                    className="text-xl font-semibold border-b"
+                    {...field}
                   />
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-        <CreatePostEditor></CreatePostEditor>
-      </div>
+          {/* Short Description */}
+          <FormField
+            control={form.control}
+            name="shortDescp"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <textarea
+                    rows={3}
+                    placeholder="Enter a short description..."
+                    className="w-full border-b p-3 text-muted-foreground"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Tags */}
+          <FormField
+            control={form.control}
+            name="tags"
+            render={() => (
+              <FormItem>
+                <div className="flex flex-wrap items-center gap-2">
+                  <Input
+                    placeholder="Enter tag..."
+                    value={tagInput}
+                    onChange={(e) => setTagInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        handleAddTag();
+                      }
+                    }}
+                    className="max-w-sm"
+                  />
+                  <Button type="button" onClick={handleAddTag}>
+                    <Plus className="w-4 h-4 mr-1" /> Add Tag
+                  </Button>
+                </div>
+                {tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {tags.map((tag, index) => (
+                      <span
+                        key={index}
+                        className="flex items-center gap-1 px-3 py-1 rounded-full bg-muted text-sm"
+                      >
+                        {tag}
+                        <X
+                          className="w-4 h-4 cursor-pointer"
+                          onClick={() => handleRemoveTag(tag)}
+                        />
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Content Editor */}
+          <FormField
+            control={form.control}
+            name="content"
+            render={({ field }) => (
+              <FormItem>
+                <CreatePostEditor
+                  value={field.value}
+                  onChange={(content) => {
+                    setEditorContent(content);
+                    field.onChange(content);
+                  }}
+                />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" className="mt-6">
+            Publish Post
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };

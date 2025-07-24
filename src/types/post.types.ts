@@ -26,3 +26,11 @@ export interface PostResponse {
   meta: Meta;
   data: Post[];
 }
+
+export interface ICreatePost {
+  title: string;
+  shortDescp: string;
+  tags: string[];
+  content: string;
+  userId: string;
+}

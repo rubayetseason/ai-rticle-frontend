@@ -1,6 +1,10 @@
 // app/posts/services/post.service.ts
-import { Post, PostResponse } from "@/types/post.types";
+import { ICreatePost, Post, PostResponse } from "@/types/post.types";
 import axiosInstance from "@/utils/axios";
+
+export const createPost = async (data: ICreatePost) => {
+  return axiosInstance.post("/post/create-post", data);
+};
 
 export const getPosts = async (params?: { search?: string; tag?: string }) => {
   const res = await axiosInstance.get<PostResponse>("/post", { params });
