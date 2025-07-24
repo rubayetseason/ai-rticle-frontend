@@ -1,36 +1,124 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ai_rticle_frontend
 
-## Getting Started
+**Live URL**: [https://ai-rticle-frontend.vercel.app](https://ai-rticle-frontend.vercel.app)
 
-First, run the development server:
+AI-powered blog frontend application where users can explore, search, and manage articles.
+
+---
+
+## 🌟 Features
+
+- 🔐 Authentication flow (Login, Register)
+- 📝 Create, view, and manage article posts
+- 🔎 Search articles by title and hashtag
+- 🔖 Tag-based navigation
+- 🚀 Optimized image handling with Next.js
+- 📱 Responsive UI with Tailwind CSS & ShadCN UI
+- 🔧 Form validation with React Hook Form + Zod
+- 🧪 Unit testing with Jest & Testing Library
+- 🧹 Code linting, formatting & CI/CD with GitHub Actions
+
+---
+
+## ⚙️ Tech Stack
+
+- **Framework**: Next.js 15 (App Router)
+- **Styling**: Tailwind CSS, ShadCN UI
+- **Forms**: React Hook Form, Zod
+- **Testing**: Jest, Testing Library
+- **State Management**: Local state (useState, useEffect)
+- **Auth Handling**: JWT + LocalStorage
+- **API Client**: Axios
+- **CI/CD**: GitHub Actions
+- **Deployment**: Vercel
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/rubayetseason/ai-rticle-frontend.git ai-rticle-frontend
+cd ai-rticle-frontend
+```
+
+### 2. Install Dependencies
+
+```bash
+npm install
+```
+
+### 3. Setup Environment
+
+Create a `.env` file in the root with the following:
+
+```env
+NEXT_PUBLIC_API_BASE_URL=http://localhost:5000/api/v1
+```
+
+> Replace the API URL as needed.
+
+### 4. Run Locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 5. Run Tests
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run test
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 6. Lint and Format
 
-## Learn More
+```bash
+npm run lint     # Check code linting
+npm run format   # Auto-format with Prettier (add this script if needed)
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠️ Available Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```json
+{
+  "dev": "next dev",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
+  "test": "jest",
+  "format": "prettier --check .",
+  "format:fix": "prettier --write ."
+}
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📁 Folder Structure (Partial)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/` — App Router pages
+- `components/` — Reusable components
+- `services/` — API layer
+- `types/` — TypeScript interfaces
+- `helpers/` — Utility functions (e.g. JWT, localStorage)
+- `.github/workflows/ci.yml` — GitHub Actions for CI/CD
+
+---
+
+## 📦 Dependencies (Important)
+
+Some key dependencies:
+
+- `next`: 15.4.3
+- `react`: 19.1.0
+- `tailwindcss`: ^4
+- `@hookform/resolvers`, `zod`, `react-hook-form`
+- `@testing-library/react`, `jest`, `ts-jest`
+
+---
+
+## 🧪 GitHub Actions: CI/CD
+
+Runs lint, test, and format checks on push to `main` and on pull requests.
