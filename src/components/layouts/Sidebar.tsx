@@ -19,8 +19,7 @@ const Sidebar = () => {
   const [mounted, setMounted] = useState(false);
 
   const location = usePathname();
-  const userId = "123";
-  const menuItems = generateMobileMenuList(userId);
+  const menuItems = generateMobileMenuList();
 
   const token = getFromLocalStorage(authKey);
   const userName = getUserFromToken(token as string)?.userName;

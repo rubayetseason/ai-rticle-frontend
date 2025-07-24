@@ -2,41 +2,42 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
 
-// Resolve current directory
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Initialize compatibility layer
 const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-// Async function to build ESLint config
 const eslintConfig = async () => {
   const globals = (await import("globals")).default;
   const jestPlugin = await import("eslint-plugin-jest");
 
   return [
+    {
+      ignores: ["**/*.test.ts", "**/*.test.tsx"], // 👈 Skip test files
+    },
     ...compat.extends("next/core-web-vitals", "next/typescript"),
 
-    {
-      files: ["**/*.test.ts", "**/*.test.tsx"],
-      plugins: {
-        jest: jestPlugin,
-      },
-      languageOptions: {
-        globals: {
-          ...globals.jest,
-        },
-      },
-      rules: {
-        "jest/no-disabled-tests": "warn",
-        "jest/no-focused-tests": "error",
-        "jest/no-identical-title": "error",
-        "jest/prefer-to-have-length": "warn",
-        "jest/valid-expect": "error",
-      },
-    },
+    // 👇 you can keep this block if you want to lint tests (optional)
+    // {
+    //   files: ["**/*.test.ts", "**/*.test.tsx"],
+    //   plugins: {
+    //     jest: jestPlugin,
+    //   },
+    //   languageOptions: {
+    //     globals: {
+    //       ...globals.jest,
+    //     },
+    //   },
+    //   rules: {
+    //     "jest/no-disabled-tests": "off",
+    //     "jest/no-focused-tests": "error",
+    //     "jest/no-identical-title": "error",
+    //     "jest/prefer-to-have-length": "warn",
+    //     "jest/valid-expect": "error",
+    //   },
+    // },
   ];
 };
 

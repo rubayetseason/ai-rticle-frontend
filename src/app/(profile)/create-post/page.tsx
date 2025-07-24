@@ -31,6 +31,8 @@ const CreatePostPage = () => {
   const [tagInput, setTagInput] = useState("");
   const [editorContent, setEditorContent] = useState("");
 
+  console.log("editorContent", editorContent);
+
   const form = useForm<PostFormData>({
     resolver: zodResolver(postSchema),
     defaultValues: {
