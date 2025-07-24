@@ -1,4 +1,6 @@
-export function getUserFromToken(token: string): { userId: string } | null {
+export function getUserFromToken(
+  token: string
+): { userId: string; userName: string; userEmail: string } | null {
   try {
     const base64 = token.split(".")[1];
     const decoded = JSON.parse(atob(base64));

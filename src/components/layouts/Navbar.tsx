@@ -7,6 +7,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { generateMobileMenuList } from "@/constants/menuList";
+import { authKey } from "@/constants/storageKey";
+import { getUserFromToken } from "@/helpers/jwt";
+import { getFromLocalStorage } from "@/helpers/local-storage";
 import { cn } from "@/lib/utils";
 import { logoutUser } from "@/services/auth.service";
 import { LogOut, Moon, Sparkles, Sun } from "lucide-react";
@@ -16,14 +19,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-const userName = "@johndoe";
-
 const Navbar = () => {
   const { setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const location = usePathname();
   const userId = "123";
   const menuItems = generateMobileMenuList(userId);
+
+  const token = getFromLocalStorage(authKey);
+  const userName = getUserFromToken(token as string)?.userName;
 
   // Avoid hydration mismatch
   useEffect(() => {
