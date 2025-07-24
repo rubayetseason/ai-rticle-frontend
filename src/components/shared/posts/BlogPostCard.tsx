@@ -4,6 +4,7 @@ import { formatDistanceToNow } from "date-fns";
 import { Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import DeletePostModal from "./DeletePostModal";
 
 export function BlogPostCard({
   id,
@@ -13,13 +14,17 @@ export function BlogPostCard({
   viewCount,
   createdAt,
   user,
-}: BlogPostCardProps) {
+  userId,
+  onPostDeleted,
+}: BlogPostCardProps & { onPostDeleted?: () => void }) {
+  const canDelete = userId && userId === user.id;
+
   return (
     <div className="h-full md:h-96 py-0 flex flex-row items-start font-raleway border border-input rounded-xl shadow-none">
       <div className="hidden md:block w-96 h-full">
         <Link href={`/posts/${id}`}>
           <Image
-            className="hidden md:block w-full h-full oject-cover rounded-l-xl"
+            className="hidden md:block w-full h-full object-cover rounded-l-xl"
             src="https://picsum.photos/500/700"
             alt={title}
             width={1000}
@@ -68,9 +73,15 @@ export function BlogPostCard({
           </div>
         </Link>
         <div className="mt-8 text-lg text-muted-foreground flex justify-between items-center">
-          <Link href={`/posts/${id}`}>
-            <Button>Read Article</Button>
-          </Link>
+          <div className="flex items-center gap-2">
+            <Link href={`/posts/${id}`}>
+              <Button>Read Article</Button>
+            </Link>
+
+            {canDelete && (
+              <DeletePostModal postId={id} onSuccess={onPostDeleted} />
+            )}
+          </div>
           <div className="flex items-center gap-2">
             <Eye />
             <span>{viewCount} reads</span>

@@ -7,12 +7,22 @@ export const getPosts = async (params?: { search?: string; tag?: string }) => {
   return res.data;
 };
 
+export const getMyPosts = async (userId: string) => {
+  const res = await axiosInstance.get<PostResponse>("/post", {
+    params: { creatorId: userId },
+  });
+  return res.data;
+};
+
 export const getSinglePost = async (postId: string) => {
   const res = await axiosInstance.get<Post>(`/post/${postId}`);
-  console.log("res", res);
   return res.data;
 };
 
 export const incrementViewCount = async (postId: string) => {
   await axiosInstance.patch(`/post/${postId}`);
+};
+
+export const deletePost = async (postId: string) => {
+  return axiosInstance.delete(`/post/${postId}`);
 };

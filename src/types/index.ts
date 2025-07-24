@@ -7,6 +7,7 @@ export interface BlogPostCardProps {
   tags: string[];
   viewCount: number;
   createdAt: string;
+  userId?: string | null;
   user: User;
 }
 
