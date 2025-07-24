@@ -1,8 +1,8 @@
-// app/posts/components/BlogPostList.tsx
 "use client";
 
 import BlogPostSkeleton from "@/components/loaders/BlogPostSkeleton";
 import { BlogPostCard } from "@/components/shared/posts/BlogPostCard";
+import { useCurrentUserId } from "@/hooks/useCurrentUserId";
 import { Post } from "@/types/post.types";
 
 interface Props {
@@ -11,6 +11,8 @@ interface Props {
 }
 
 const BlogPostList = ({ posts, isLoading }: Props) => {
+  const userId = useCurrentUserId();
+
   if (isLoading) {
     return (
       <div className="md:px-5 space-y-6 py-10">
@@ -32,7 +34,7 @@ const BlogPostList = ({ posts, isLoading }: Props) => {
   return (
     <div className="md:px-5 space-y-6 py-10">
       {posts.map((post) => (
-        <BlogPostCard key={post.id} {...post} />
+        <BlogPostCard key={post.id} {...post} userId={userId} />
       ))}
     </div>
   );

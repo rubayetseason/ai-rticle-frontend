@@ -1,41 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getFromLocalStorage } from "@/helpers/local-storage";
-import { authKey } from "@/constants/storageKey";
-import { getUserFromToken } from "@/helpers/jwt";
 import { getMyPosts } from "@/services/post.service";
 import { Post } from "@/types/post.types";
 import BlogPostSkeleton from "@/components/loaders/BlogPostSkeleton";
 import { BlogPostCard } from "@/components/shared/posts/BlogPostCard";
 import { toast } from "sonner";
+import { useCurrentUserId } from "@/hooks/useCurrentUserId";
 
 const MyPosts = () => {
+  const userId = useCurrentUserId();
   const [posts, setPosts] = useState<Post[]>([]);
-  const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const fetchMyPosts = async () => {
-    const token = getFromLocalStorage(authKey);
-
-    if (!token) {
-      toast.error("Unauthorized: Token not found");
+    if (!userId) {
       setLoading(false);
       return;
     }
-
-    const user = getUserFromToken(token);
-
-    if (!user?.userId) {
-      toast.error("Unauthorized: Cannot fetch user ID from token");
-      setLoading(false);
-      return;
-    }
-
-    setUserId(user.userId);
 
     try {
-      const res = await getMyPosts(user.userId);
+      const res = await getMyPosts(userId);
       setPosts(res.data);
     } catch (err) {
       toast.error("Failed to fetch your posts.");
@@ -50,8 +35,9 @@ const MyPosts = () => {
   };
 
   useEffect(() => {
-    fetchMyPosts();
-  }, []);
+    if (userId) fetchMyPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId]);
 
   if (loading) {
     return (

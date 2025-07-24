@@ -9,8 +9,7 @@ const PostsPage = async () => {
   try {
     const res = await getPosts();
     posts = res?.data;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } catch (err: any) {
+  } catch (err) {
     console.error("Failed to fetch posts", err);
   }
 

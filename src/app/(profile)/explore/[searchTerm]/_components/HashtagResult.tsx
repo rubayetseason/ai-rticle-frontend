@@ -1,11 +1,13 @@
 "use client";
 
-import { BlogPostCard } from "@/components/shared/posts/BlogPostCard";
 import BlogPostSkeleton from "@/components/loaders/BlogPostSkeleton";
+import { BlogPostCard } from "@/components/shared/posts/BlogPostCard";
+import { useCurrentUserId } from "@/hooks/useCurrentUserId";
 import { Post } from "@/types/post.types";
 
 const HashtagResult = ({ posts, tag }: { posts: Post[]; tag: string }) => {
   const loading = !posts;
+  const userId = useCurrentUserId();
 
   return (
     <div className="px-5 my-10 space-y-6 border-t border-input">
@@ -21,7 +23,9 @@ const HashtagResult = ({ posts, tag }: { posts: Post[]; tag: string }) => {
       ) : posts.length === 0 ? (
         <p className="text-muted-foreground">No posts found for #{tag}.</p>
       ) : (
-        posts.map((post) => <BlogPostCard key={post.id} {...post} />)
+        posts.map((post) => (
+          <BlogPostCard key={post.id} {...post} userId={userId} />
+        ))
       )}
     </div>
   );

@@ -33,24 +33,23 @@ export function BlogPostCard({
         </Link>
       </div>
       <div className="p-6 w-full h-full flex flex-col justify-between">
-        <Link href={`/posts/${id}`}>
-          <div>
-            {tags.length > 0 && (
-              <div className="pr-4 flex flex-wrap gap-2">
-                {tags.map((tag, index) => (
-                  <Link href={`/explore/${tag}`} key={index}>
-                    <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-sm">
-                      #{tag}
-                    </span>
-                  </Link>
-                ))}
-              </div>
-            )}
+        <div>
+          {tags.length > 0 && (
+            <div className="pr-4 flex flex-wrap gap-2">
+              {tags.map((tag, index) => (
+                <Link href={`/explore/${tag}`} key={index}>
+                  <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-sm">
+                    #{tag}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          )}
+          <Link href={`/posts/${id}`}>
             <h2 className="mt-5 text-xl md:text-4xl font-bold">{title}</h2>
             <p className="mt-5 text-sm md:text-bsae text-muted-foreground">
               {shortDescp}
             </p>
-
             <div className="mt-9 flex items-center gap-4">
               <Image
                 src="https://picsum.photos/200"
@@ -70,8 +69,8 @@ export function BlogPostCard({
                 </div>
               </div>
             </div>
-          </div>
-        </Link>
+          </Link>
+        </div>
         <div className="mt-8 text-lg text-muted-foreground flex justify-between items-center">
           <div className="flex items-center gap-2">
             <Link href={`/posts/${id}`}>
