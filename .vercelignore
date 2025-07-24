@@ -1,0 +1,10 @@
+# Vercel Ignore File
+swc/
+.swc
+/.swc
+.swc_cache/
+.jest/
+.next/cache/
+node_modules/
+*.log
+.env*.local
