@@ -73,11 +73,13 @@ const CreatePostPage = () => {
       return;
     }
 
+    const normalizedTags = values.tags.map((tag) => tag.trim().replace(/\s+/g, "-"));
+
     const payload = {
       ...values,
+      tags: normalizedTags,
       userId: user.userId,
     };
-
     try {
       await createPost(payload);
       toast.success("Post created successfully!");

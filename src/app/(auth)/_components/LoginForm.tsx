@@ -70,6 +70,19 @@ export default function LoginForm({ form, onSubmit }: Props) {
             Sign In
           </button>
         </div>
+
+        <div className="mt-5 w-full md:w-1/2 mx-auto text-center grid grid-cols-2 gap-3">
+          <h1>
+            test2@gmail.com
+            <br />
+            123456
+          </h1>
+          <h1>
+            test1@gmail.com
+            <br />
+            123456
+          </h1>
+        </div>
       </form>
     </Form>
   );

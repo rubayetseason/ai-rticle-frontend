@@ -3,11 +3,29 @@
 import BlogPostSkeleton from "@/components/loaders/BlogPostSkeleton";
 import { BlogPostCard } from "@/components/shared/posts/BlogPostCard";
 import { useCurrentUserId } from "@/hooks/useCurrentUserId";
+import { searchPostsByTitle } from "@/services/post.service";
 import { Post } from "@/types/post.types";
+import { useState } from "react";
+import { toast } from "sonner";
 
-const PostResult = ({ posts }: { posts: Post[] }) => {
-  const loading = !posts;
+const PostResult = ({ posts: initialPosts }: { posts: Post[] }) => {
   const userId = useCurrentUserId();
+  const [posts, setPosts] = useState<Post[]>(initialPosts);
+  const [loading, setLoading] = useState(false);
+
+  const refetchPosts = async () => {
+    try {
+      setLoading(true);
+      const searchTerm = new URLSearchParams(window.location.pathname).get("searchTerm");
+      const res = await searchPostsByTitle(searchTerm || "");
+      setPosts(res.data);
+    } catch (error) {
+      toast.error("Failed to refetch posts");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="px-5 my-10 space-y-6 border-t border-input">
@@ -23,7 +41,9 @@ const PostResult = ({ posts }: { posts: Post[] }) => {
       ) : posts.length === 0 ? (
         <p className="text-muted-foreground">No posts found.</p>
       ) : (
-        posts.map((post) => <BlogPostCard key={post.id} {...post} userId={userId} />)
+        posts.map((post) => (
+          <BlogPostCard key={post.id} {...post} userId={userId} onPostDeleted={refetchPosts} />
+        ))
       )}
     </div>
   );
