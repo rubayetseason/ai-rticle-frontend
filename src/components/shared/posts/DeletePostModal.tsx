@@ -16,13 +16,7 @@ import {
 import { toast } from "sonner";
 import { useState } from "react";
 
-const DeletePostModal = ({
-  postId,
-  onSuccess,
-}: {
-  postId: string;
-  onSuccess?: () => void;
-}) => {
+const DeletePostModal = ({ postId, onSuccess }: { postId: string; onSuccess?: () => void }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 

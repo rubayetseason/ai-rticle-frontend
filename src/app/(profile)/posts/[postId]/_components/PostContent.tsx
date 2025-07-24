@@ -20,9 +20,7 @@ const PostContent = ({ post, postId }: { post: Post; postId: string }) => {
     <div className="w-full max-w-3xl mx-auto px-4 py-10 space-y-6">
       <GoBackButton />
 
-      <h1 className="text-2xl md:text-5xl font-bold tracking-tight">
-        {post.title}
-      </h1>
+      <h1 className="text-2xl md:text-5xl font-bold tracking-tight">{post.title}</h1>
 
       <div className="mt-9 flex items-center gap-4">
         <Image
@@ -49,10 +47,7 @@ const PostContent = ({ post, postId }: { post: Post; postId: string }) => {
       {post.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {post.tags.map((tag, index) => (
-            <span
-              key={index}
-              className="px-3 py-1 bg-muted flex items-center gap-1 rounded-full"
-            >
+            <span key={index} className="px-3 py-1 bg-muted flex items-center gap-1 rounded-full">
               #{tag}
             </span>
           ))}

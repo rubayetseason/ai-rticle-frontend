@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { LoginFormData } from "@/schemas/authSchemas";
 import { Eye, EyeOff, Key, User } from "lucide-react";
 import { useState } from "react";
@@ -60,15 +54,8 @@ export default function LoginForm({ form, onSubmit }: Props) {
                       placeholder="Password"
                       className="px-3 py-2.5 outline-none w-full dark:placeholder:text-gray-400/50 dark:text-gray-400"
                     />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword((p) => !p)}
-                    >
-                      {showPassword ? (
-                        <EyeOff className="w-5 h-5" />
-                      ) : (
-                        <Eye className="w-5 h-5" />
-                      )}
+                    <button type="button" onClick={() => setShowPassword((p) => !p)}>
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
                   <FormMessage className="mt-2 text-sm text-red-600 font-medium" />

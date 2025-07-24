@@ -1,10 +1,7 @@
 import axiosInstance from "@/utils/axios";
 import { LoginFormData, SignupFormData } from "@/schemas/authSchemas";
 import { authKey } from "@/constants/storageKey";
-import {
-  removeFromLocalStorage,
-  setToLocalStorage,
-} from "@/helpers/local-storage";
+import { removeFromLocalStorage, setToLocalStorage } from "@/helpers/local-storage";
 
 export const signupUser = async (data: SignupFormData) => {
   const payload = {

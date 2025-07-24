@@ -23,9 +23,7 @@ const HashtagResult = ({ posts, tag }: { posts: Post[]; tag: string }) => {
       ) : posts.length === 0 ? (
         <p className="text-muted-foreground">No posts found for #{tag}.</p>
       ) : (
-        posts.map((post) => (
-          <BlogPostCard key={post.id} {...post} userId={userId} />
-        ))
+        posts.map((post) => <BlogPostCard key={post.id} {...post} userId={userId} />)
       )}
     </div>
   );

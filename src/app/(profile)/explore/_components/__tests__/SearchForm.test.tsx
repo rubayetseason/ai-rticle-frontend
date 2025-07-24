@@ -48,9 +48,7 @@ describe("SearchForm", () => {
     fireEvent.change(input, { target: { value: "   " } });
     fireEvent.submit(form!);
 
-    expect(toast.error).toHaveBeenCalledWith(
-      "Please enter a valid search term."
-    );
+    expect(toast.error).toHaveBeenCalledWith("Please enter a valid search term.");
     expect(mockPush).not.toHaveBeenCalled();
   });
 });

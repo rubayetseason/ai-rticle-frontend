@@ -1,12 +1,7 @@
 "use client";
 
 import { Separator } from "@/components/ui/separator";
-import {
-  LoginFormData,
-  loginSchema,
-  SignupFormData,
-  signupSchema,
-} from "@/schemas/authSchemas";
+import { LoginFormData, loginSchema, SignupFormData, signupSchema } from "@/schemas/authSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -28,7 +23,7 @@ export default function Home() {
     if (token) {
       router.replace("/posts");
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [isSignUp, setIsSignUp] = useState(false);
@@ -126,9 +121,7 @@ export default function Home() {
                 transition={{ duration: 0.3 }}
                 className="w-3/4 mx-auto space-y-6"
               >
-                <h1 className="text-2xl md:text-5xl font-semibold text-center">
-                  Sign Up
-                </h1>
+                <h1 className="text-2xl md:text-5xl font-semibold text-center">Sign Up</h1>
 
                 <SignupForm form={signupForm} onSubmit={handleSignupSubmit} />
 

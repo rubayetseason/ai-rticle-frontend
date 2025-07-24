@@ -152,7 +152,6 @@
   }
 }
 
-
 @layer utilities {
   .bg-gradient-animate {
     @apply text-white bg-gradient-to-r from-[#0f0c29] via-[#464196] to-[#242447] hover:brightness-110 cursor-pointer transition-all duration-300 ease-in-out;
@@ -184,7 +183,7 @@
 }
 
 .three-body__dot:after {
-  content: '';
+  content: "";
   position: absolute;
   height: 0%;
   width: 100%;
@@ -243,7 +242,6 @@
 }
 
 @keyframes wobble1 {
-
   0%,
   100% {
     transform: translateY(0%) scale(1);
@@ -257,7 +255,6 @@
 }
 
 @keyframes wobble2 {
-
   0%,
   100% {
     transform: translateY(0%) scale(1);
@@ -324,7 +321,7 @@
   color: inherit !important;
 }
 
-.dark .tiptap li>p {
+.dark .tiptap li > p {
   @apply text-foreground/90;
 }
 
@@ -334,7 +331,7 @@
 }
 
 .tiptap code {
-  background-color: #F0EEEC;
+  background-color: #f0eeec;
   border-radius: 0.4rem;
   color: black;
   font-size: 0.85rem;
@@ -354,7 +351,6 @@
 
 .tiptap blockquote {
   border-left: 3px solid #3b82f6;
-  ;
   margin: 1.5rem 0;
   border-radius: 0;
   padding-left: 1rem;
@@ -367,7 +363,7 @@
 }
 
 .dark #editor_scrollbar::-webkit-scrollbar {
-  background-color: #09090B;
+  background-color: #09090b;
 }
 
 #editor_scrollbar::-webkit-scrollbar-thumb {
@@ -388,7 +384,7 @@
   font-size: 1.25rem;
 }
 
-.tiptap_display>* {
+.tiptap_display > * {
   padding: 0 !important;
 }
 

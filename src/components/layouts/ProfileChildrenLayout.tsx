@@ -18,7 +18,7 @@ const ProfileChildrenLayout = ({ children }: { children: React.ReactNode }) => {
     } else {
       setIsAuthenticated(true);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!isAuthenticated) return null; // or a loader if you prefer
@@ -34,9 +34,7 @@ const ProfileChildrenLayout = ({ children }: { children: React.ReactNode }) => {
         </aside>
 
         {/* Content */}
-        <main className="pb-10 flex-1 md:border-x md:border-border">
-          {children}
-        </main>
+        <main className="pb-10 flex-1 md:border-x md:border-border">{children}</main>
       </div>
     </div>
   );

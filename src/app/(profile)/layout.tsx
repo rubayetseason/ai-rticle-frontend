@@ -29,12 +29,7 @@ export default function ProfileLayout({
 }>) {
   return (
     <html lang="en">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <body className={`${raleway.variable} font-raleway antialiased`}>
           <ProfileChildrenLayout>
             <Navbar></Navbar>

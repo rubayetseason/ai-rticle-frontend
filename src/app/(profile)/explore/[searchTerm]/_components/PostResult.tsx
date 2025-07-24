@@ -23,9 +23,7 @@ const PostResult = ({ posts }: { posts: Post[] }) => {
       ) : posts.length === 0 ? (
         <p className="text-muted-foreground">No posts found.</p>
       ) : (
-        posts.map((post) => (
-          <BlogPostCard key={post.id} {...post} userId={userId} />
-        ))
+        posts.map((post) => <BlogPostCard key={post.id} {...post} userId={userId} />)
       )}
     </div>
   );

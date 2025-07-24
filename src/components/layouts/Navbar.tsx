@@ -1,11 +1,6 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
-import {
-  Sheet,
-  SheetClose,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { generateMobileMenuList } from "@/constants/menuList";
 import { authKey } from "@/constants/storageKey";
 import { getUserFromToken } from "@/helpers/jwt";
@@ -80,9 +75,7 @@ const Navbar = () => {
                             : "text-black dark:text-white font-normal"
                         )}
                       >
-                        {item?.icon && (
-                          <item.icon className="size-5 md:size-7" />
-                        )}
+                        {item?.icon && <item.icon className="size-5 md:size-7" />}
                         <p>{item.name}</p>
                       </div>
                     </SheetClose>

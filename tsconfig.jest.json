@@ -4,9 +4,5 @@
     "jsx": "preserve",
     "types": ["jest", "node"]
   },
-  "include": [
-    "**/*.test.ts",
-    "**/*.test.tsx",
-    "next-env.d.ts"
-  ]
+  "include": ["**/*.test.ts", "**/*.test.tsx", "next-env.d.ts"]
 }

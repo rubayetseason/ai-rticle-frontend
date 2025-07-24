@@ -47,9 +47,7 @@ export function BlogPostCard({
           )}
           <Link href={`/posts/${id}`}>
             <h2 className="mt-5 text-xl md:text-4xl font-bold">{title}</h2>
-            <p className="mt-5 text-sm md:text-bsae text-muted-foreground">
-              {shortDescp}
-            </p>
+            <p className="mt-5 text-sm md:text-bsae text-muted-foreground">{shortDescp}</p>
             <div className="mt-9 flex items-center gap-4">
               <Image
                 src="https://picsum.photos/200"
@@ -77,9 +75,7 @@ export function BlogPostCard({
               <Button>Read Article</Button>
             </Link>
 
-            {canDelete && (
-              <DeletePostModal postId={id} onSuccess={onPostDeleted} />
-            )}
+            {canDelete && <DeletePostModal postId={id} onSuccess={onPostDeleted} />}
           </div>
           <div className="flex items-center gap-2">
             <Eye />

@@ -6,13 +6,7 @@ import { postSchema } from "@/schemas/postSchema";
 import { z } from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Plus, X } from "lucide-react";
 import GoBackButton from "@/components/shared/others/GoBackButton";
 import { useState } from "react";
@@ -25,12 +19,9 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 // Lazy-load Tiptap editor with `editor` prop forwarding
-const CreatePostEditor = dynamic(
-  () => import("./_components/CreatePostEditor"),
-  {
-    ssr: false,
-  }
-);
+const CreatePostEditor = dynamic(() => import("./_components/CreatePostEditor"), {
+  ssr: false,
+});
 
 type PostFormData = z.infer<typeof postSchema>;
 

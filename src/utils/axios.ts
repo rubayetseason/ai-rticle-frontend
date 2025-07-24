@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import axios from "axios";
-import {
-  getFromLocalStorage,
-  setToLocalStorage,
-} from "@/helpers/local-storage";
+import { getFromLocalStorage, setToLocalStorage } from "@/helpers/local-storage";
 import { authKey } from "@/constants/storageKey";
 
 // Create instance

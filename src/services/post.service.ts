@@ -1,10 +1,5 @@
 // app/posts/services/post.service.ts
-import {
-  IAIGenerateProps,
-  ICreatePost,
-  Post,
-  PostResponse,
-} from "@/types/post.types";
+import { IAIGenerateProps, ICreatePost, Post, PostResponse } from "@/types/post.types";
 import axiosInstance from "@/utils/axios";
 
 export const generatePostAI = async ({ postId, mode }: IAIGenerateProps) => {

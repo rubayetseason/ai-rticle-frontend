@@ -25,13 +25,7 @@ import {
   Undo2,
 } from "lucide-react";
 import { useCallback } from "react";
-import {
-  FaBold,
-  FaItalic,
-  FaQuoteLeft,
-  FaStrikethrough,
-  FaUnderline,
-} from "react-icons/fa";
+import { FaBold, FaItalic, FaQuoteLeft, FaStrikethrough, FaUnderline } from "react-icons/fa";
 import { LuLayoutList } from "react-icons/lu";
 import { RiListOrdered2 } from "react-icons/ri";
 
@@ -102,8 +96,8 @@ const CreatePostEditor = ({
                 isActive("heading", { level: 2 })
                   ? "h2"
                   : isActive("heading", { level: 3 })
-                  ? "h3"
-                  : "paragraph"
+                    ? "h3"
+                    : "paragraph"
               }
               onValueChange={(value) => {
                 if (value === "paragraph") {
@@ -132,12 +126,12 @@ const CreatePostEditor = ({
                   editor.isActive({ textAlign: "left" })
                     ? "left"
                     : editor.isActive({ textAlign: "center" })
-                    ? "center"
-                    : editor.isActive({ textAlign: "right" })
-                    ? "right"
-                    : editor.isActive({ textAlign: "justify" })
-                    ? "justify"
-                    : "left" // Default value
+                      ? "center"
+                      : editor.isActive({ textAlign: "right" })
+                        ? "right"
+                        : editor.isActive({ textAlign: "justify" })
+                          ? "justify"
+                          : "left" // Default value
                 }
                 onValueChange={(value) => {
                   editor.chain().focus().setTextAlign(value).run();
@@ -260,9 +254,7 @@ const CreatePostEditor = ({
                   {colors.map((color, index) => (
                     <button
                       key={index}
-                      onClick={() =>
-                        editor.chain().focus().setColor(color).run()
-                      }
+                      onClick={() => editor.chain().focus().setColor(color).run()}
                       className="w-5 h-5 mx-auto rounded-md border-2"
                       style={{ backgroundColor: color }}
                       title={color}

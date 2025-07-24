@@ -28,16 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         <Toaster position="top-center" richColors />
-        <body className={`${raleway.variable} font-raleway antialiased`}>
-          {children}
-        </body>
+        <body className={`${raleway.variable} font-raleway antialiased`}>{children}</body>
       </ThemeProvider>
     </html>
   );

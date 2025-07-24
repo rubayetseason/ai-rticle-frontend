@@ -3,12 +3,7 @@
 import { ArrowLeft } from "lucide-react";
 
 const GoBackButton = () => {
-  return (
-    <ArrowLeft
-      onClick={() => history.back()}
-      className="size-7 cursor-pointer"
-    />
-  );
+  return <ArrowLeft onClick={() => history.back()} className="size-7 cursor-pointer" />;
 };
 
 export default GoBackButton;

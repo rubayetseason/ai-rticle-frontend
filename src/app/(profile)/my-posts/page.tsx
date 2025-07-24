@@ -52,17 +52,10 @@ const MyPosts = () => {
   return (
     <div className="md:px-5 space-y-6 py-10">
       {posts.length === 0 ? (
-        <p className="text-center text-muted-foreground">
-          You haven&apos;t created any posts yet.
-        </p>
+        <p className="text-center text-muted-foreground">You haven&apos;t created any posts yet.</p>
       ) : (
         posts.map((post) => (
-          <BlogPostCard
-            key={post.id}
-            {...post}
-            userId={userId}
-            onPostDeleted={handlePostDeleted}
-          />
+          <BlogPostCard key={post.id} {...post} userId={userId} onPostDeleted={handlePostDeleted} />
         ))
       )}
     </div>

@@ -20,9 +20,7 @@ const MiniBlogCard = () => {
           <div className="flex flex-col justify-between flex-1 overflow-hidden">
             <Link href="/posts/123">
               <div>
-                <h3 className="text-base text-wrap font-semibold truncate">
-                  {post.title}
-                </h3>
+                <h3 className="text-base text-wrap font-semibold truncate">{post.title}</h3>
                 <p className="text-sm text-wrap text-muted-foreground mt-1 line-clamp-2">
                   {post.shortDescription}
                 </p>

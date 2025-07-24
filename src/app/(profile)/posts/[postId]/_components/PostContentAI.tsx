@@ -19,15 +19,11 @@ type Props = {
 
 export default function PostContentAI({ postId }: Props) {
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState<"summarize" | "tldr" | "tell_more" | null>(
-    null
-  );
+  const [mode, setMode] = useState<"summarize" | "tldr" | "tell_more" | null>(null);
   const [loading, setLoading] = useState(false);
   const [htmlContent, setHtmlContent] = useState("");
 
-  const handleGenerate = async (
-    selectedMode: "summarize" | "tldr" | "tell_more"
-  ) => {
+  const handleGenerate = async (selectedMode: "summarize" | "tldr" | "tell_more") => {
     setMode(selectedMode);
     setLoading(true);
     setHtmlContent("");
@@ -63,13 +59,9 @@ export default function PostContentAI({ postId }: Props) {
 
         {!loading && htmlContent === "" && (
           <div className="flex flex-wrap gap-3 mt-4">
-            <Button onClick={() => handleGenerate("summarize")}>
-              Summarize
-            </Button>
+            <Button onClick={() => handleGenerate("summarize")}>Summarize</Button>
             <Button onClick={() => handleGenerate("tldr")}>TL;DR</Button>
-            <Button onClick={() => handleGenerate("tell_more")}>
-              Tell More
-            </Button>
+            <Button onClick={() => handleGenerate("tell_more")}>Tell More</Button>
           </div>
         )}
 
