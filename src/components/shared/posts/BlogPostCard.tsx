@@ -1,72 +1,64 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { BlogPostCardProps } from "@/types";
 import { formatDistanceToNow } from "date-fns";
 import { Eye } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export function BlogPostCard({
-  postId,
-  thumbnail,
+  id,
   title,
-  shortDescription,
-  readCount,
-  postedAt,
+  shortDescp,
+  tags,
+  viewCount,
+  createdAt,
   user,
-  stats,
 }: BlogPostCardProps) {
-  console.log(postId);
-
-  const router = useRouter();
-
   return (
     <div className="h-full md:h-96 py-0 flex flex-row items-start font-raleway border border-input rounded-xl shadow-none">
       <div className="hidden md:block w-96 h-full">
-        <Image
-          onClick={() => router.push(`/posts/${postId}`)}
-          className="hidden md:block w-full h-full oject-cover rounded-l-xl"
-          src={thumbnail}
-          alt={title}
-          width={1000}
-          height={1000}
-        />
+        <Link href={`/posts/${id}`}>
+          <Image
+            className="hidden md:block w-full h-full oject-cover rounded-l-xl"
+            src="https://picsum.photos/500/700"
+            alt={title}
+            width={1000}
+            height={1000}
+          />
+        </Link>
       </div>
       <div className="p-6 w-full h-full flex flex-col justify-between">
-        <Link href="/posts/123">
+        <Link href={`/posts/${id}`}>
           <div>
-            {stats.hashtags.length > 0 && (
+            {tags.length > 0 && (
               <div className="pr-4 flex flex-wrap gap-2">
-                {stats.hashtags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-sm"
-                  >
-                    #{tag}
-                  </span>
+                {tags.map((tag, index) => (
+                  <Link href={`/explore/${tag}`} key={index}>
+                    <span className="flex items-center gap-1 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-sm">
+                      #{tag}
+                    </span>
+                  </Link>
                 ))}
               </div>
             )}
             <h2 className="mt-5 text-xl md:text-4xl font-bold">{title}</h2>
             <p className="mt-5 text-sm md:text-bsae text-muted-foreground">
-              {shortDescription}
+              {shortDescp}
             </p>
 
             <div className="mt-9 flex items-center gap-4">
               <Image
-                src={user.avatar}
-                alt={user.name}
+                src="https://picsum.photos/200"
+                alt={user.username}
                 width={40}
                 height={40}
                 className="rounded-full object-cover"
               />
               <div className="flex-1 flex justify-between items-center">
                 <div>
-                  <p className="font-medium">{user.name}</p>
+                  <p className="font-medium">{user.username}</p>
                   <p className="text-sm text-muted-foreground">
-                    {formatDistanceToNow(new Date(postedAt), {
+                    {formatDistanceToNow(new Date(createdAt), {
                       addSuffix: true,
                     })}
                   </p>
@@ -76,10 +68,12 @@ export function BlogPostCard({
           </div>
         </Link>
         <div className="mt-8 text-lg text-muted-foreground flex justify-between items-center">
-          <Button>Read Article</Button>
+          <Link href={`/posts/${id}`}>
+            <Button>Read Article</Button>
+          </Link>
           <div className="flex items-center gap-2">
             <Eye />
-            <span>{readCount} reads</span>
+            <span>{viewCount} reads</span>
           </div>
         </div>
       </div>

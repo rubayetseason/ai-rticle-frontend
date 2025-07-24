@@ -1,27 +1,20 @@
-"use client";
-import BlogPostSkeleton from "@/components/loaders/BlogPostSkeleton";
-import { BlogPostCard } from "@/components/shared/posts/BlogPostCard";
-import { blogPosts } from "@/constants";
-import { useEffect, useState } from "react";
+import { getPosts } from "@/services/post.service";
+import { Post } from "@/types/post.types";
+import BlogPostList from "./_components/BlogPostList";
 
-const AllPosts = () => {
-  const [loading, setLoading] = useState(true);
+export const dynamic = "force-dynamic";
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(false);
-    }, 1200);
+const PostsPage = async () => {
+  let posts: Post[] = [];
+  try {
+    const res = await getPosts();
+    posts = res?.data;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (err: any) {
+    console.error("Failed to fetch posts", err);
+  }
 
-    return () => clearTimeout(timeout);
-  }, []);
-
-  return (
-    <div className="md:px-5 space-y-6 py-10">
-      {loading
-        ? Array.from({ length: 3 }).map((_, i) => <BlogPostSkeleton key={i} />)
-        : blogPosts.map((post) => <BlogPostCard key={post.postId} {...post} />)}
-    </div>
-  );
+  return <BlogPostList posts={posts} isLoading={false} />;
 };
 
-export default AllPosts;
+export default PostsPage;

@@ -1,20 +1,13 @@
+import { User } from "./post.types";
+
 export interface BlogPostCardProps {
-  postId: string;
-  thumbnail: string;
-  coverImage: string;
+  id: string;
   title: string;
-  shortDescription: string;
-  readCount: number;
-  postedAt: string | Date;
-  user: {
-    id: string;
-    name: string;
-    avatar: string;
-  };
-  stats: {
-    hashtags: string[];
-  };
-  myposts?: boolean;
+  shortDescp: string;
+  tags: string[];
+  viewCount: number;
+  createdAt: string;
+  user: User;
 }
 
 export interface SinglePostProps {
